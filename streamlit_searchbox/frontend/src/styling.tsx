@@ -293,17 +293,31 @@ class SearchboxStyle {
         ? children.split(new RegExp(`(${inputValue})`, "gi"))
         : [];
 
+    const parenthesisParts =
+        typeof children === "string"
+          ? children.split(/(\(.*?\))/g)
+          : [];
+
+    
     return (
       <components.Option {...props}>
-        {parts.map((part, index) =>
-          part.toLowerCase() === inputValue.toLowerCase() ? (
-            <span key={index} style={{ backgroundColor: highlightColor }}>
-              {part}
-            </span>
-          ) : (
-            part // no match
-          ),
-        )}
+        {parenthesisParts.map((part, index) =>
+          part.match(/\(.*?\)/) ? (
+            <span key={index} style={{ color: 'blue-grey' }}>
+              {part}
+            </span>
+          ) : (
+            parts.map((subPart, subIndex) =>
+              subPart.toLowerCase() === inputValue.toLowerCase() ? (
+                <span key={subIndex} style={{ fontWeight: 'bold' }}>
+                  {subPart}
+                </span>
+              ) : (
+                subPart // no match
+              ),
+            )
+          ),
+        )}
       </components.Option>
     );
   };
