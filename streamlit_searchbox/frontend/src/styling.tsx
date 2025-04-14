@@ -297,7 +297,7 @@ class SearchboxStyle {
       <components.Option {...props}>
         {parts.map((part, index) =>
           part.toLowerCase() === inputValue.toLowerCase() ? (
-            <span key={index} style={{ backgroundColor: highlightColor }}>
+            <span key={index} style={{ fontWeight: 'bold' }}>
               {part}
             </span>
           ) : (
